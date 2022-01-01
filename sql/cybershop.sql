@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Oct 11, 2018 at 10:47 AM
--- Server version: 10.1.25-MariaDB
--- PHP Version: 7.1.7
+-- Host: 127.0.0.1
+-- Generation Time: Jan 01, 2022 at 05:56 PM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.4.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -21,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `cybershop`
 --
-CREATE DATABASE IF NOT EXISTS `cybershop` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `cybershop`;
 
 -- --------------------------------------------------------
 
@@ -65,13 +62,11 @@ CREATE TABLE `banner` (
 --
 
 INSERT INTO `banner` (`banner_id`, `judul`, `deskripsi`, `gambar`) VALUES
-(1, 'DISKON 80%', 'Philips Lampu LED', '5833295_645f4bfd-e7f8-4bda-95f7-43f7f335b3ff_800_800.jpg'),
-(2, 'GSX R150', 'Diskon 5% bagi yang mempunyai kartu kredit bank Mega', 'new-gsxr150-red1.jpg'),
-(3, 'SATRIA F150 INJEKSI', 'Jadilah KSATRIA yang Sesungguhnya!', 'wp-1518425815810851233213.jpg'),
-(4, 'HILIH KHINTIL', 'Mphhsssss', 'cbr250rr-kecelakaan-3.jpg'),
-(5, 'CASHBACK UP TO 10K', '\"Imad aja beli, masa loe nggk..\"', 'imad marketing.jpg'),
-(9, 'lorem', 'asda', 'gimana mau sukses - bang wawan.jpg'),
-(10, 'anak jalanan ver kamp. teng', 'asd4asdas', 'reference_cbr121.jpg');
+(1, 'Baju', 'Koleksi Baju 2022', '5833295_645f4bfd-e7f8-4bda-95f7-43f7f335b3ff_800_800.jpg'),
+(2, 'Celana', 'Celana gaya 2022', 'new-gsxr150-red1.jpg'),
+(3, 'Topi', 'Topi ala 2022', 'wp-1518425815810851233213.jpg'),
+(4, 'Sepatu', 'Sepatu tahun baru', 'cbr250rr-kecelakaan-3.jpg'),
+(5, 'CASHBACK UP TO 10K', 'Koleksi Fashion tahun baru', 'imad marketing.jpg');
 
 -- --------------------------------------------------------
 
@@ -97,7 +92,8 @@ CREATE TABLE `barang` (
 
 INSERT INTO `barang` (`kode`, `barang_id`, `nama_barang`, `kategori_id`, `merek_id`, `warna_id`, `harga`, `stok`, `gambar`) VALUES
 ('BRG', 12, 'Kentang', 5, 8, 7, '1500.00', 10, 'potato_1475961694-150x150.jpg'),
-('BRG', 13, 'Brownies', 5, 13, 10, '7000.00', 20, 'brownies intan.PNG');
+('BRG', 13, 'Brownies', 5, 13, 10, '7000.00', 20, 'brownies intan.PNG'),
+('BRG', 14, 'DGI Style Cloth', 1, 13, 4, '250000.00', 5, '');
 
 -- --------------------------------------------------------
 
@@ -115,14 +111,14 @@ CREATE TABLE `kategori` (
 --
 
 INSERT INTO `kategori` (`kategori_id`, `nama`) VALUES
-(1, 'Elektronika'),
-(2, 'Bank DKI'),
-(3, 'Perabot Rumah Tangga'),
-(4, 'Otomotif'),
-(5, 'Makanan'),
-(6, 'Buku'),
-(7, 'ATK'),
-(8, 'Alat mandi');
+(1, 'Baju'),
+(2, 'Celana'),
+(3, 'Sepatu'),
+(4, 'Topi'),
+(5, 'Aksesoris'),
+(6, 'Kerudung'),
+(7, 'Outer'),
+(8, 'Tas');
 
 -- --------------------------------------------------------
 
@@ -180,7 +176,7 @@ CREATE TABLE `transaksi` (
   `users_id` int(11) NOT NULL,
   `jumlah` int(4) NOT NULL,
   `bank` int(11) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -214,7 +210,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `email`, `fullname`, `username`, `password`, `phone`, `address`, `level`) VALUES
 (1, 'hilih@khintil.com', 'hilih khintil', 'hilih', 'cc2cb18dc5b316d4d359ff23e036b4cc', '080989999', 'TelkomNYET instan', 'user'),
 (2, 'admin@email.com', 'Muhammad Admin', 'admin', '21232f297a57a5a743894a0e4a801fc3', '080989999', 'Di mana aja', 'admin'),
-(3, 'halah@email.com', 'Halah khantal', 'halah', '1b2b94086b053034036115619a3b46be', '0809890', 'asdsa', 'user');
+(3, 'halah@email.com', 'Halah khantal', 'halah', '1b2b94086b053034036115619a3b46be', '0809890', 'asdsa', 'user'),
+(4, 'fikri@yahoo.com', 'fikri', 'fikri1711', 'c61735266147fa1c8a6b4558bd67f967', '089684711291', 'jl situ indah no.3', 'user');
 
 -- --------------------------------------------------------
 
@@ -326,7 +323,7 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `barang_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `barang_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `kategori`
@@ -356,7 +353,7 @@ ALTER TABLE `transaksi`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `warna`
