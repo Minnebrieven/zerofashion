@@ -1,0 +1,54 @@
+nama database : Cybershop
+
+daftar tabel : 
+
+
+---- Users ----
+users_id int(4) not null primary key auto_increment,
+email varchar(255) not null,
+fullname varchar(255) not null,
+username varchar(255) not null,
+password varchar(255) not null,
+phone varchar(12),
+address text,
+level enum('administrator','operator','user')
+
+--- Kategori ---
+kategori_id INT(4) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+nama VARCHAR(255)
+
+
+--- Merek -----
+merek_id NOT NULL PRIMARY KEY AUTO_INCREMENT,
+nama VARCHAR(255) NOT NULL
+
+---- Warna ----
+warna_id INT(4) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+nama VARCHAR(255) NOT NULL
+
+---- Barang ----
+barang_code CHAR(3) DEFAULT "BRG",
+barang_id INT(4) ZEROFILL NOT NULL UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+nama_barang VARCHAR(255) NOT NULL,
+kategori_id INT(4) NOT NULL INDEX,
+merek_id INT(4) NOT NULL INDEX FK Ke tabel merek(id),
+warna_id INT(4) NOT NULL INDEX FK ke tabel warna(id)
+users_id INT(4) 
+harga DECIMAL(10,0),
+stok INT(4) NOT NULL,
+gambar TEXT NOT NULL
+
+--- Banner ---
+banner_id INT(4) NOT NULL PRIMARY KEY AUTO_INCREMENT
+judul VARCHAR(255) NOT NULL,
+deskripsi VARCHAR(255)
+gambar TEXT NOT NULL
+
+--- Transaksi ---
+kode_transaksi CHAR(3) DEFAULT "TRK",
+transaksi_id INT(4) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+barang_id INT(4) NOT NULL INDEX FK KE tabel barang(id),
+users_id INT(4) NOT NULL INDEX FK KE tabel users(id),
+jumlah INT(4) NOT NULL DEFAULT "1",
+bank ENUM("BRI","BNI","Bank DKI","BCA","BJB","Mandiri"),
+timestamp TIMESTAMP
